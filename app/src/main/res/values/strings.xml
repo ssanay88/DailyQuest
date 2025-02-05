@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DailyQuest</string>
+    <string name="select_quest_category">퀘스트 유형 선택</string>
 </resources>
