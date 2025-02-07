@@ -4,14 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
@@ -82,7 +85,27 @@ fun DailyQuestApp() {
 
 @Composable
 fun MainScreen(modifier: Modifier) {
-
+    Column(modifier = modifier.padding(horizontal = 10.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(vertical = 36.dp)
+        ) {
+            Text(
+                text = "퀘스트 로그",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.weight(1f)
+            )
+            Icon(
+                painter = painterResource(R.drawable.ic_launcher_foreground),
+                contentDescription = null,
+                modifier = Modifier.size(44.dp)
+            )
+            Text(
+                text = "320 포인트"
+            )
+        }
+        DailyQuestSection()
+    }
 }
 
 @Composable
@@ -177,6 +200,78 @@ fun QuestCategoryElement() {
     }
 }
 
+@Composable
+fun DailyQuestSection() {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ){
+        items(10) { item ->
+            DailyQuest()
+        }
+    }
+}
+
+// TODO 추후에 파라미터 추가 필요
+//    @DrawableRes icon: Int = ,
+//    title: String,
+//    @StringRes category: Int,
+//    point: Int
+@Composable
+fun DailyQuest() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .border(
+            width = 1.dp,
+            color = Color.Black,
+            shape = MaterialTheme.shapes.medium)
+            .padding(horizontal = 12.dp)
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_launcher_foreground),
+            contentDescription = null,
+            modifier = Modifier.size(88.dp)
+        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = "제목",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = "카테고리",
+                style = MaterialTheme.typography.titleSmall
+            )
+        }
+        LeftIconText(
+            text = "10",
+            icon = R.drawable.ic_launcher_foreground,
+            modifier = Modifier
+        )
+    }
+}
+
+@Composable
+fun LeftIconText(
+    text: String,
+    @DrawableRes icon: Int,
+    modifier: Modifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(icon),
+            contentDescription = null,
+            modifier = Modifier.size(40.dp)
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelLarge
+        )
+    }
+}
 
 // Preview
 @Preview(showBackground = true)
