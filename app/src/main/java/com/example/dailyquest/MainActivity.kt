@@ -1,12 +1,15 @@
 package com.example.dailyquest
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
@@ -44,6 +48,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.dailyquest.data.QuestCategory
 import com.example.dailyquest.ui.theme.DailyQuestTheme
 import kotlinx.coroutines.launch
 
@@ -64,6 +69,39 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DailyQuestApp() {
     var showBottomSheet by rememberSaveable { mutableStateOf(false) }
+    val questCategoryList = listOf(
+        QuestCategory(
+            categoryNo = 1,
+            categoryTitle = "방문하기",
+            categoryIcon = R.drawable.ic_launcher_foreground
+        ),
+        QuestCategory(
+            categoryNo = 2,
+            categoryTitle = "할 일 등록",
+            categoryIcon = R.drawable.ic_launcher_foreground
+        ),
+        QuestCategory(
+            categoryNo = 3,
+            categoryTitle = "운동하기",
+            categoryIcon = R.drawable.ic_launcher_foreground
+        ),
+        QuestCategory(
+            categoryNo = 4,
+            categoryTitle = "식단",
+            categoryIcon = R.drawable.ic_launcher_foreground
+        ),
+        QuestCategory(
+            categoryNo = 5,
+            categoryTitle = "카테고리1",
+            categoryIcon = R.drawable.ic_launcher_foreground
+        ),
+        QuestCategory(
+            categoryNo = 6,
+            categoryTitle = "카테고리2",
+            categoryIcon = R.drawable.ic_launcher_foreground
+        )
+
+    )
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -78,7 +116,9 @@ fun DailyQuestApp() {
         MainScreen(modifier = Modifier.padding(innerPadding))
 
         if (showBottomSheet) {
-            CreateQuestBottomSheet(onDismiss = { showBottomSheet = !showBottomSheet })
+            CreateQuestBottomSheet(
+                questCategoryList = questCategoryList,
+                onDismiss = { showBottomSheet = !showBottomSheet })
         }
     }
 }
@@ -123,7 +163,10 @@ fun CreateQuestFloatingBtn(onCreateBtnClicked: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateQuestBottomSheet(onDismiss: () -> Unit) {
+fun CreateQuestBottomSheet(
+    questCategoryList: List<QuestCategory>,
+    onDismiss: () -> Unit
+) {
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
 
@@ -163,8 +206,8 @@ fun CreateQuestBottomSheet(onDismiss: () -> Unit) {
                 columns = GridCells.Fixed(3)
             ) {
                 // 퀘스트 유형 생성
-                items(10) { item ->
-                    QuestCategoryElement()
+                items(items = questCategoryList) { item ->
+                    QuestCategoryElement(item)
                 }
             }
         }
@@ -173,17 +216,25 @@ fun CreateQuestBottomSheet(onDismiss: () -> Unit) {
 }
 
 @Composable
-fun QuestCategoryElement() {
+fun QuestCategoryElement(
+    questCategory: QuestCategory
+) {
     Surface(
         shape = MaterialTheme.shapes.medium
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(vertical = 4.dp, horizontal = 4.dp).border(
-                width = 1.dp, // 너비 5dp
-                color = Color.Black,
-                shape = MaterialTheme.shapes.medium // 네모 모양
-            )
+            modifier = Modifier
+                .padding(vertical = 4.dp, horizontal = 4.dp)
+                .border(
+                    width = 1.dp, // 너비 5dp
+                    color = Color.Black,
+                    shape = MaterialTheme.shapes.medium // 네모 모양
+                )
+                .clickable {
+                    // TODO 각 카테고리 별 페이지로 이동
+
+                }
         ) {
             Image(
                 painter = painterResource(R.drawable.ic_launcher_foreground),
@@ -192,7 +243,7 @@ fun QuestCategoryElement() {
                 modifier = Modifier.size(80.dp)
             )
             Text(
-                text = "카테고리",
+                text = questCategory.categoryTitle,
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(top = 10.dp, bottom = 8.dp)
             )
@@ -204,7 +255,7 @@ fun QuestCategoryElement() {
 fun DailyQuestSection() {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(10.dp)
-    ){
+    ) {
         items(10) { item ->
             DailyQuest()
         }
@@ -223,9 +274,10 @@ fun DailyQuest() {
         modifier = Modifier
             .fillMaxWidth()
             .border(
-            width = 1.dp,
-            color = Color.Black,
-            shape = MaterialTheme.shapes.medium)
+                width = 1.dp,
+                color = Color.Black,
+                shape = MaterialTheme.shapes.medium
+            )
             .padding(horizontal = 12.dp)
     ) {
         Icon(
@@ -294,7 +346,10 @@ fun CreateQuestFloatingBtnPreview() {
 @Composable
 fun CreateQuestBottomSheetPreview() {
     DailyQuestTheme {
-        CreateQuestBottomSheet(onDismiss = {})
+        CreateQuestBottomSheet(
+            questCategoryList = listOf<QuestCategory>(),
+            onDismiss = {}
+        )
     }
 }
 
