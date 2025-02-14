@@ -92,7 +92,7 @@ fun DailyQuestApp() {
         ),
         QuestCategory(
             categoryNo = 5,
-            categoryTitle = "카테고리1",
+            categoryTitle = "외출하기",
             categoryIcon = R.drawable.ic_launcher_foreground
         ),
         QuestCategory(
@@ -303,27 +303,6 @@ fun DailyQuest() {
     }
 }
 
-@Composable
-fun LeftIconText(
-    text: String,
-    @DrawableRes icon: Int,
-    modifier: Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            painter = painterResource(icon),
-            contentDescription = null,
-            modifier = Modifier.size(40.dp)
-        )
-        Text(
-            text = text,
-            style = MaterialTheme.typography.labelLarge
-        )
-    }
-}
 
 // Preview
 @Preview(showBackground = true)

@@ -40,6 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import com.example.dailyquest.LeftIconText
 import com.example.dailyquest.R
 import com.example.dailyquest.ui.theme.DailyQuestTheme
 
@@ -187,28 +188,6 @@ private fun CreateVisitQuestScreen() {
             Spacer(modifier = Modifier.height(10.dp))
 
         }
-    }
-}
-
-@Composable
-fun LeftIconText(
-    text: String,
-    @DrawableRes icon: Int,
-    modifier: Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            painter = painterResource(icon),
-            contentDescription = null,
-            modifier = Modifier.size(40.dp)
-        )
-        Text(
-            text = text,
-            style = MaterialTheme.typography.labelLarge
-        )
     }
 }
 
