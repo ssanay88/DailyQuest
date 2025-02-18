@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
@@ -125,26 +126,26 @@ private fun CreateVisitQuestScreen() {
                         modifier = Modifier.fillMaxWidth()
                     )
                     Row {
-                        OutlinedButton(onClick = { Log.d("tngur", "월") }) {
-                            Text("월")
+                        OutlinedButton(onClick = { Log.d("tngur", "월") },modifier = Modifier.weight(1f)) {
+                            Text(text = "월", textAlign = TextAlign.Center)
                         }
-                        OutlinedButton(onClick = { Log.d("tngur", "화") }) {
-                            Text("화")
+                        OutlinedButton(onClick = { Log.d("tngur", "화") },modifier = Modifier.weight(1f)) {
+                            Text(text = "화", textAlign = TextAlign.Center)
                         }
-                        OutlinedButton(onClick = { Log.d("tngur", "수") }) {
-                            Text("수")
+                        OutlinedButton(onClick = { Log.d("tngur", "수") },modifier = Modifier.weight(1f)) {
+                            Text(text = "수", textAlign = TextAlign.Center)
                         }
-                        OutlinedButton(onClick = { Log.d("tngur", "목") }) {
-                            Text("목")
+                        OutlinedButton(onClick = { Log.d("tngur", "목") },modifier = Modifier.weight(1f)) {
+                            Text(text = "목", textAlign = TextAlign.Center)
                         }
-                        OutlinedButton(onClick = { Log.d("tngur", "금") }) {
-                            Text("금")
+                        OutlinedButton(onClick = { Log.d("tngur", "금") },modifier = Modifier.weight(1f)) {
+                            Text(text = "금", textAlign = TextAlign.Center)
                         }
-                        OutlinedButton(onClick = { Log.d("tngur", "토") }) {
-                            Text("토")
+                        OutlinedButton(onClick = { Log.d("tngur", "토") },modifier = Modifier.weight(1f)) {
+                            Text(text = "토", textAlign = TextAlign.Center)
                         }
-                        OutlinedButton(onClick = { Log.d("tngur", "일") }) {
-                            Text("일")
+                        OutlinedButton(onClick = { Log.d("tngur", "일") },modifier = Modifier.weight(1f)) {
+                            Text(text = "일", textAlign = TextAlign.Center)
                         }
                     }
                 }
