@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,6 +44,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import com.example.dailyquest.CreateQuestTitle
+import com.example.dailyquest.DaysToRepeat
 import com.example.dailyquest.LeftIconText
 import com.example.dailyquest.R
 import com.example.dailyquest.ui.theme.DailyQuestTheme
@@ -70,7 +73,7 @@ class CreateWorkoutQuestFragment : Fragment() {
 private fun CreateWorkoutQuestScreen() {
     DailyQuestTheme {
         Column(
-
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -88,31 +91,11 @@ private fun CreateWorkoutQuestScreen() {
                 )
             }
 
-            Card(
-                colors = CardDefaults.cardColors(
-                    contentColor = MaterialTheme.colorScheme.primaryContainer
-                ),
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)
-            ) {
-                Column(
-                    modifier = Modifier.padding(8.dp).fillMaxWidth()
-                ) {
-                    LeftIconText(
-                        text = "퀘스트 제목",
-                        icon = R.drawable.ic_launcher_foreground,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    var text by remember { mutableStateOf("") }
-                    OutlinedTextField(
-                        value = text,
-                        onValueChange = { text = it },
-                        placeholder = { Text("운동 퀘스트 제목을 입력하세요.") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(8.dp))
+            CreateQuestTitle(
+                textFieldHint = "운동 퀘스트 제목을 입력하세요.",
+                titleIconResource = R.drawable.ic_launcher_foreground,
+                modifier = Modifier
+            )
 
             Card(
                 colors = CardDefaults.cardColors(
@@ -147,48 +130,8 @@ private fun CreateWorkoutQuestScreen() {
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(8.dp))
 
-            Card(
-                colors = CardDefaults.cardColors(
-                    contentColor = MaterialTheme.colorScheme.primaryContainer
-                ),
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)
-            ) {
-                Column(
-                    modifier = Modifier.padding(8.dp).fillMaxWidth()
-                ) {
-                    LeftIconText(
-                        text = "운동 요일",
-                        icon = R.drawable.ic_launcher_foreground,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Row {
-                        OutlinedButton(onClick = { Log.d("tngur", "월") },modifier = Modifier.weight(1f)) {
-                            Text(text = "월", textAlign = TextAlign.Center)
-                        }
-                        OutlinedButton(onClick = { Log.d("tngur", "화") },modifier = Modifier.weight(1f)) {
-                            Text(text = "화", textAlign = TextAlign.Center)
-                        }
-                        OutlinedButton(onClick = { Log.d("tngur", "수") },modifier = Modifier.weight(1f)) {
-                            Text(text = "수", textAlign = TextAlign.Center)
-                        }
-                        OutlinedButton(onClick = { Log.d("tngur", "목") },modifier = Modifier.weight(1f)) {
-                            Text(text = "목", textAlign = TextAlign.Center)
-                        }
-                        OutlinedButton(onClick = { Log.d("tngur", "금") },modifier = Modifier.weight(1f)) {
-                            Text(text = "금", textAlign = TextAlign.Center)
-                        }
-                        OutlinedButton(onClick = { Log.d("tngur", "토") },modifier = Modifier.weight(1f)) {
-                            Text(text = "토", textAlign = TextAlign.Center)
-                        }
-                        OutlinedButton(onClick = { Log.d("tngur", "일") },modifier = Modifier.weight(1f)) {
-                            Text(text = "일", textAlign = TextAlign.Center)
-                        }
-                    }
-                }
-            }
-            Spacer(modifier = Modifier.height(8.dp))
+            DaysToRepeat(titleText = "운동 요일")
 
             Card(
                 colors = CardDefaults.cardColors(
@@ -210,7 +153,6 @@ private fun CreateWorkoutQuestScreen() {
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(8.dp))
 
             Button(
                 onClick = { Log.d("tngur", "퀘스트 생성") },
